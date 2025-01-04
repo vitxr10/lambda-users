@@ -22,4 +22,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Update Lambda Function
-        run: aws lambda update-function-code --function-name StreamLambdaHandler --zip-file fileb://target/lambda-users-1.0-SNAPSHOT-lambda-package.zip
+        run: aws lambda update-function-code --lambda-users StreamLambdaHandler --zip-file fileb://target/lambda-users-1.0-SNAPSHOT-lambda-package.zip
