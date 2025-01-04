@@ -39,7 +39,7 @@ public class UsersController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> post(User user){
+    public ResponseEntity<Long> post(@RequestBody User user){
         System.out.println(user);
 
         var id = service.create(user);
