@@ -1,21 +1,25 @@
-name: deploy to lambda
-on: [push]
+name: deploy
+on:
+  push:
+    branches: [main]
 jobs:
-
-  deploy_zip:
-    name: deploy lambda function
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout source code
+      - name: Code Checkout
         uses: actions/checkout@v3
-      - name: Generate ZIP
-        run: |
-          zip deployment.zip *
-      - name: default deploy
-        uses: appleboy/lambda-action@v0.2.0
+      - name: Setup Java
+        uses: actions/setup-java@v3
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          function_name: lambda-users
-          zip_file: deployment.zip
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build Project
+        run: mvn clean install
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Update Lambda Function
+        run: aws lambda update-function-code --function-name StreamLambdaHandler --zip-file fileb://target/lambda-users-1.0-SNAPSHOT-lambda-package.zip
