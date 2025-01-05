@@ -24,7 +24,7 @@ public class UsersController {
     public ResponseEntity<List<User>> getAll(){
         var users = service.getAll();
 
-        System.out.println(users);
+        log.info("Listando todos os usuários", users);
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -33,17 +33,21 @@ public class UsersController {
     public ResponseEntity<Optional<User>> getById(@PathVariable Long id){
         var user = service.getById(id);
 
-        System.out.println(user);
+        log.info("Usuário encontrado", user);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Long> post(@RequestBody User user){
-        System.out.println(user);
+        log.info("Recebido o payload de novo usuário", user);
 
         var id = service.create(user);
 
+        log.info("Criado novo usuário", user);
+
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
+
+
 }
