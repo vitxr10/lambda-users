@@ -30,17 +30,23 @@ public class UserService {
                 .findFirst();
     }
 
-//    public boolean updateCourse(Long id, User user) {
-//        return getById(id).map(existingCourse -> {
-//            users.remove(existingCourse);
-//            users.add(user);
-//            return true;
-//        }).orElse(false);
-//    }
-//
-//    // Delete a course by id
-//    public boolean deleteCourse(int id) {
-//        return users.removeIf(u -> u.getId() == id);
-//    }
+    public Optional<User> update(Long id, User updatedUser) {
+        return users.stream()
+                .filter(user -> user.getId().equals(id))
+                .findFirst()
+                .map(existingUser -> {
+                    existingUser.setName(updatedUser.getName());
+                    existingUser.setEmail(updatedUser.getEmail());
+                    existingUser.setPassword(updatedUser.getPassword());
+                    existingUser.setAge(updatedUser.getAge());
+                    existingUser.setWeight(updatedUser.getWeight());
+                    existingUser.setHeigth(updatedUser.getHeigth());
+                    return existingUser;
+                });
+    }
+
+    public boolean delete(Long id) {
+        return users.removeIf(user -> user.getId().equals(id));
+    }
 
 }
