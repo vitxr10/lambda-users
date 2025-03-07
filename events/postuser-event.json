@@ -1,0 +1,28 @@
+{
+  "body": "{\"id\": 4, \"name\": \"John Doe\", \"email\": \"johndoe@example.com\", \"password\": \"securePassword123\", \"age\": 30, \"weight\": 75.5, \"heigth\": 1.80}",
+  "resource": "/{proxy+}",
+  "path": "/users",
+  "httpMethod": "POST",
+  "queryStringParameters": null,
+  "pathParameters": {
+    "proxy": "users"
+  },
+  "stageVariables": null,
+  "headers": {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  "requestContext": {
+    "accountId": "123456789012",
+    "resourceId": "123456",
+    "stage": "prod",
+    "requestId": "c6af9ac6-7b61-11e6-9a41-93e8deadbeef",
+    "identity": {
+      "sourceIp": "127.0.0.1",
+      "userAgent": "Custom User Agent String"
+    },
+    "resourcePath": "/{proxy+}",
+    "httpMethod": "POST",
+    "apiId": "1234567890"
+  }
+}
